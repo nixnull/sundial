@@ -52,7 +52,7 @@ if x["cod"] != "404":
     the_time = datetime.fromtimestamp(x["dt"]).strftime('%H:%M')
 
     # time of sunset
-    sunset = datetime.fromtimestamp(x["sys"]["sunset"]).strftime('%H %M')
+    sunset = datetime.fromtimestamp(x["sys"]["sunset"]).strftime('%H:%M')
     
     # store the value corresponding 
     # to the "description" key at 
