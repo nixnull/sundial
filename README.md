@@ -11,3 +11,5 @@ Sundial is a modern, clever (but not 'smart') radio alarm clock work in progress
 I'm eventually planning to integrate this into a raspberry pi or similar, and have a nice looking little alarm clock.
 
 I'm building this for fun and for personal use, so it probably won't ever have any generic user-friendly features. But feel free to take a look, fork it, do what you want with it.
+
+This project currently uses https://sunrise-sunset.org/ for sun info. I might switch to calculating locally if I can find a good package for it later.

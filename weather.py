@@ -6,28 +6,33 @@
 import requests, json 
 from datetime import datetime
 
-# Enter your API key here 
-with open("openweather_api_key.txt") as f:
-    api_key = f.read()[0:-1]
+#Load the config file
+with open("config.json") as f:
+    configs = json.load(f)
 
-# base_url variable to store url 
-base_url = "http://api.openweathermap.org/data/2.5/weather?"
+lat = configs["lat"]
+lng = configs["lng"]
 
-# Give city name 
-city_name = "St. Louis"
+#Sun info
+sun_url = "https://api.sunrise-sunset.org/json?lat=" + lat + "&lng=" + lng + "&date=tomorrow"
 
-# complete_url variable to store 
+sun_json = requests.get(sun_url).json()
+
+#print(sun_json) 
+
+# weather_base_url variable to store url 
+weather_base_url = "http://api.openweathermap.org/data/2.5/weather?"
+
 # complete url address 
-complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+weather_url = weather_base_url + "lat=" + lat + "&lon=" + lng + "&appid=" + configs["weather_api_key"]
+
+#print(weather_url)
 
 # get method of requests module 
 # return response object 
-response = requests.get(complete_url)
+x = requests.get(weather_url).json()
 
-# json method of response object 
-# convert json format data into 
-# python format data 
-x = response.json() 
+#print(x)
 
 # Now x contains list of nested dictionaries 
 # Check the value of "cod" key is equal to 
@@ -47,7 +52,7 @@ if x["cod"] != "404":
     the_time = datetime.fromtimestamp(x["dt"]).strftime('%H:%M')
 
     # time of sunset
-    sunset = datetime.fromtimestamp(x["sys"]["sunset"]).strftime('%H:%M')
+    sunset = datetime.fromtimestamp(x["sys"]["sunset"]).strftime('%H %M')
     
     # store the value corresponding 
     # to the "description" key at 
@@ -71,4 +76,5 @@ if x["cod"] != "404":
         f.write(to_write)
 
 else: 
-    print(" City Not Found ") 
+    print(" Location Not Found ")
+    print(x)
