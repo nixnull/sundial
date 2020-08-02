@@ -18,4 +18,4 @@ This project currently uses https://sunrise-sunset.org/ for sun info. I might sw
 
 The weather info comes from https://openweathermap.org/. You need your own (free, and more than permissive enough for personal use) api key to use this.
 
-The script is heavily editted but originall adapted from here: https://www.geeksforgeeks.org/python-find-current-weather-of-any-city-using-openweathermap-api/
+The script is heavily edited but originally adapted from here: https://www.geeksforgeeks.org/python-find-current-weather-of-any-city-using-openweathermap-api/
