@@ -14,7 +14,7 @@ I'm building this for fun and for personal use, so it probably won't ever have a
 
 ## Credit
 
-This project currently uses https://sunrise-sunset.org/ for sun info. I might switch to calculating locally if I can find a good package for it later.
+This project astral to calculate sunrise. Get it with `pip install astral`.
 
 The weather info comes from https://openweathermap.org/. You need your own (free, and more than permissive enough for personal use) api key to use this.
 

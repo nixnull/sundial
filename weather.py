@@ -4,7 +4,9 @@
 
 # import required modules 
 import requests, json 
-from datetime import datetime
+from astral.sun import sun
+from astral import LocationInfo
+from datetime import datetime, timedelta, date
 
 #Load the config file
 with open("config.json") as f:
@@ -13,12 +15,13 @@ with open("config.json") as f:
 lat = configs["lat"]
 lng = configs["lng"]
 
-#Sun info
-sun_url = "https://api.sunrise-sunset.org/json?lat=" + lat + "&lng=" + lng + "&date=tomorrow"
+# Most of these details don't actually matter. Just the lat and lng. TODO: Can I do this without setting random details?
+city = LocationInfo("A", "A", "America/Chicago", lat, lng)
 
-sun_json = requests.get(sun_url).json()
-
-#print(sun_json) 
+tomorrow = date.today() + timedelta(days=1)
+s = sun(city.observer, date=tomorrow, tzinfo=city.timezone)
+sunrise = s['sunrise']
+bedtime = sunrise - timedelta(hours=float(configs["sleep_hrs"]))
 
 # weather_base_url variable to store url 
 weather_base_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -60,7 +63,7 @@ if x["cod"] != "404":
     weather_description = z[0]["description"] 
 
     # print following values 
-    to_write = ("Time: " + the_time + ".\n" +
+    to_write = ("Time: " + str(the_time) + ".\n" +
                     "Current Temperature: " +
                     str(y["temp"]) +
                     " kelvin." +
@@ -70,7 +73,7 @@ if x["cod"] != "404":
                     "\n" +
                     "Currently " + str(weather_description) + "." +
                     "\n" +
-                    "Sunset: " + sunset + "\n")
+                    "Bedtime: " + bedtime.strftime('%H:%M') + "\n")
                     
     with open("weather.txt", 'w') as f:
         f.write(to_write)
